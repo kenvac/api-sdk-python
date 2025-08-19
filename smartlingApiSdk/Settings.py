@@ -2,20 +2,7 @@
 # -*- coding: utf-8 -*-
 
 
-""" Copyright 2012-2025 Smartling, Inc.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this work except in compliance with the License.
- * You may obtain a copy of the License in the LICENSE file, or at:
- *
- * http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
-"""
+
 
 import logging
 import sys
@@ -26,4 +13,11 @@ class Settings:
     logPath  = "smartling-api-sdk-python.log"
     requestTimeoutSeconds = 30
     userAgent = "Python SDK client v%s py:%s" % (version, sys.version.split()[0])
-    printToLogfile = True  # direct stdout and stderr to log file
+
+# Configure logging
+logging.basicConfig(
+    level=Settings.logLevel,
+    format='[%(asctime)s] %(levelname)-2s %(name)-4s %(message)s',
+    filename=Settings.logPath,
+    filemode='a'
+)

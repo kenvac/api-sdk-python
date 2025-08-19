@@ -1,29 +1,20 @@
-#!/usr/bin/python
-# -*- coding: utf-8 -*-
-
-
-""" Copyright 2012-2025 Smartling, Inc.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this work except in compliance with the License.
- * You may obtain a copy of the License in the LICENSE file, or at:
- *
- * http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
-"""
-
-#FileApi V1 class implementation
-
 from .Constants import Uri, Params, ReqMethod
 from .FileApiBase import FileApiBase
 
-class ObsoleteApiV1(FileApiBase):
-    """ Api v1 basic functionality, is obsolete, new API calls are missing here, please use ApiV2 """
+import warnings
+
+class ApiV1(FileApiBase):
+    """ Api v1 basic functionality. This API is deprecated. Please use ApiV2 instead. """
+    def __init__(self, host, apiKey, projectId, proxySettings=None, permanentHeaders={}):
+        warnings.warn("ApiV1 is deprecated, please use ApiV2 instead.", DeprecationWarning, stacklevel=2)
+        super().__init__(host, proxySettings, permanentHeaders=permanentHeaders)
+        self.apiKey = apiKey
+        self.projectId = projectId
+
+    def addAuth(self, params):
+        params[Params.API_KEY] = self.apiKey
+        params[Params.PROJECT_ID] = self.projectId
+        return {}
 
     def commandUpload(self, uploadData):
         params = {

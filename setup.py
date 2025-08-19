@@ -1,5 +1,4 @@
-#!/usr/bin/python
-# -*- coding: utf-8 -*-
+
 
 
 ''' Copyright 2012 Smartling, Inc.
@@ -17,7 +16,7 @@
  * limitations under the License.
 '''
 
-from setuptools import setup
+from setuptools import setup, find_packages
 from smartlingApiSdk.version import version
 
 setup(
@@ -28,9 +27,15 @@ setup(
     description="python library to work with Smartling translation services APIs",
     license='Apache License v2.0',
     keywords='translation localization internationalization',
-    url="",
+    url="https://github.com/Smartling/api-sdk-python",
     long_description="python SDK to work with Smartling API for computer assisted translation",
-    packages=['smartlingApiSdk','smartlingApiSdk/example','smartlingApiSdk/api','smartlingApiSdk/resources'],
+    packages=find_packages(),
+    install_requires=[
+        'requests',
+    ],
+    extras_require={
+        'test': ['pytest'],
+    },
     include_package_data = True,
     package_data = {
         '': ['*.properties', '*.xml', '*.png', '*.csv'],
